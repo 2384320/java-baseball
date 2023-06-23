@@ -5,16 +5,18 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.*;
 
 public class Application {
-    private final static Scanner scanner = new Scanner(System.in);
     private final static int gameStart = 1;
+
     public static void main(String[] args) {
         List<Integer> computerNumberList = new ArrayList<>();
         List<Integer> playerNumberList = new ArrayList<>();
 
+        Scanner scanner = new Scanner(System.in);
+
         do {
             setGame(computerNumberList);
-            inputPlayerValue(playerNumberList);
-
+            String playerNumber = scanner.nextLine();
+            inputPlayerValue(playerNumberList, playerNumber);
 
 
         } while (false);
@@ -49,11 +51,12 @@ public class Application {
         return playerNumber.length() == 3;
     }
 
-    public static void inputPlayerValue(List<Integer> playerNumberList) {
-        String playerNumber = scanner.nextLine();
-
+    public static void inputPlayerValue(
+            List<Integer> playerNumberList,
+            String playerNumber
+    ) {
         if (!isRightInputLength(playerNumber) ||
-                !playerNumber.matches("[1-9]")) notRightInputForm();
+                !playerNumber.matches("[1-9]*")) notRightInputForm();
 
         savePlayerNumber(playerNumberList, playerNumber);
     }
