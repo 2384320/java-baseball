@@ -17,14 +17,23 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class ApplicationTest extends NsTest {
     @DisplayName("컴퓨터가 선정한 랜덤 값이 중복인지 확인")
     @Test
-    void searchRandomNumber() {
+    void searchDuplicateRandomNumber() {
         List<Integer> list = new ArrayList<>();
         setGame(list);
 
         HashSet<Integer> hs = new HashSet<>(list);
 
         assertThat(hs.size()).isEqualTo(list.size());
-        assertThat(hs.stream().allMatch(v -> v >= 1 && v <= 9)).isTrue();
+    }
+
+    @DisplayName("컴퓨터가 선정한 랜덤 값이 범위 내인지 확인")
+    @Test
+    void searchRandomNumberInRange() {
+        List<Integer> list = new ArrayList<>();
+
+        setGame(list);
+
+        assertThat(list.stream().allMatch(v -> v >= 1 && v <= 9)).isTrue();
     }
 
     @Test
