@@ -5,13 +5,15 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.*;
 
 public class Application {
+    private final static Scanner scanner = new Scanner(System.in);
     private final static int gameStart = 1;
     public static void main(String[] args) {
-        List<Integer> computerNumber = new ArrayList<>();
+        List<Integer> computerNumberList = new ArrayList<>();
+        List<Integer> playerNumberList = new ArrayList<>();
 
         do {
-            setGame(computerNumber);
-
+            setGame(computerNumberList);
+            inputPlayerValue(playerNumberList);
 
 
 
@@ -30,11 +32,37 @@ public class Application {
         System.out.println(getOutputString(command));
     }
 
+    private static void savePlayerNumber(
+            List<Integer> playerNumberList,
+            String playerNumber
+    ) {
+        for (String number : playerNumber.split("")) {
+            playerNumberList.add(Integer.parseInt(number));
+        }
+    }
+
+    private static void notRightInputForm() {
+        throw new IllegalArgumentException();
+    }
+
+    private static boolean isRightInputLength(String playerNumber) {
+        return playerNumber.length() == 3;
+    }
+
+    public static void inputPlayerValue(List<Integer> playerNumberList) {
+        String playerNumber = scanner.nextLine();
+
+        if (!isRightInputLength(playerNumber) ||
+                !playerNumber.matches("[1-9]")) notRightInputForm();
+
+        savePlayerNumber(playerNumberList, playerNumber);
+    }
+
     private static boolean isDuplicate(
-            List<Integer> computerNumber,
+            List<Integer> computerNumberList,
             int randomNumber
     ) {
-        return computerNumber.contains(randomNumber);
+        return computerNumberList.contains(randomNumber);
     }
 
     private static int getRandomNumber() {
@@ -42,19 +70,19 @@ public class Application {
     }
 
     private static void saveRandomNumber(
-            List<Integer> computerNumber
+            List<Integer> computerNumberList
     ) {
-        while (computerNumber.size() < 3) {
+        while (computerNumberList.size() < 3) {
             int randomNumber = getRandomNumber();
-            if (isDuplicate(computerNumber, randomNumber)) continue;
-            computerNumber.add(randomNumber);
+            if (isDuplicate(computerNumberList, randomNumber)) continue;
+            computerNumberList.add(randomNumber);
         }
     }
 
     public static void setGame(
-            List<Integer> computerNumber
+            List<Integer> computerNumberList
     ) {
         printOutputString(gameStart);
-        saveRandomNumber(computerNumber);
+        saveRandomNumber(computerNumberList);
     }
 }
