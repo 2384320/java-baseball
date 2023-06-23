@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class ApplicationTest extends NsTest {
     @DisplayName("컴퓨터가 선정한 랜덤 값이 중복인지 확인")
     @Test
-    void searchDuplicateRandomNumber() {
+    void checkDuplicateRandomNumber() {
         List<Integer> list = new ArrayList<>();
         setGame(list);
 
@@ -28,7 +28,7 @@ class ApplicationTest extends NsTest {
 
     @DisplayName("컴퓨터가 선정한 랜덤 값이 범위 내인지 확인")
     @Test
-    void searchRandomNumberInRange() {
+    void checkRandomNumberInRange() {
         List<Integer> list = new ArrayList<>();
 
         setGame(list);
