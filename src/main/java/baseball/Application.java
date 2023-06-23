@@ -30,7 +30,10 @@ public class Application {
         System.out.println(getOutputString(command));
     }
 
-    private static boolean isDuplicate(List<Integer> computerNumber, int randomNumber) {
+    private static boolean isDuplicate(
+            List<Integer> computerNumber,
+            int randomNumber
+    ) {
         return computerNumber.contains(randomNumber);
     }
 
@@ -38,13 +41,20 @@ public class Application {
         return Randoms.pickNumberInRange(1, 9);
     }
 
-    public static void setGame(List<Integer> computerNumber) {
-        printOutputString(gameStart);
-
+    private static void saveRandomNumber(
+            List<Integer> computerNumber
+    ) {
         while (computerNumber.size() < 3) {
             int randomNumber = getRandomNumber();
             if (isDuplicate(computerNumber, randomNumber)) continue;
             computerNumber.add(randomNumber);
         }
+    }
+
+    public static void setGame(
+            List<Integer> computerNumber
+    ) {
+        printOutputString(gameStart);
+        saveRandomNumber(computerNumber);
     }
 }
