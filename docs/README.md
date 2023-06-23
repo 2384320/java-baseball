@@ -1,7 +1,9 @@
-- `setGame` - 컴퓨터가 랜덤한 숫자 3개를 저장함.
-  - `getRandomNumber` - 랜덤한 숫자 하나를 반환함.
-  - `isDuplicate` - `getRandomNumber`에서 반환한 숫자가 중복인지 확인함.
-
+- `setGame` - 게임 시작 전 세팅
+  - `printOutputString` - 게임 시작에 대한 문자열 출력
+  - `saveRandomNumber` - 컴퓨터가 랜덤한 숫자 3개를 저장함.
+    - `getRandomNumber` - 랜덤한 숫자 하나를 반환함.
+    - `isDuplicate` - `getRandomNumber`에서 반환한 숫자가 중복인지 확인함.
+  
 
 - `inputPlayerValue` - 사용자가 입력한 값 저장함.
   - `isRightInputLength` - 사용자가 입력한 값이 3글자가 맞는지 확인, 옳지 않으면 `notRightInputForm` 실행함.
