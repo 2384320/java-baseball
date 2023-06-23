@@ -5,9 +5,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import static baseball.Application.inputPlayerValue;
 import static baseball.Application.setGame;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
@@ -34,6 +36,16 @@ class ApplicationTest extends NsTest {
         setGame(list);
 
         assertThat(list.stream().allMatch(v -> v >= 1 && v <= 9)).isTrue();
+    }
+
+    @DisplayName("사용자 값이 제대로 저장이 됐는지 확인")
+    @Test
+    void checkItIsSavedProperly() {
+        List<Integer> list = new ArrayList<>();
+
+        inputPlayerValue(list, "111");
+
+        assertThat(list).isEqualTo(new ArrayList<>(List.of(1, 1, 1)));
     }
 
     @Test
