@@ -1,14 +1,32 @@
 package baseball;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import static baseball.Application.setGame;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ApplicationTest extends NsTest {
+    @DisplayName("컴퓨터가 선정한 랜덤 값이 중복인지 확인")
+    @Test
+    void searchRandomNumber() {
+        List<Integer> list = new ArrayList<>();
+        setGame(list);
+
+        HashSet<Integer> hs = new HashSet<>(list);
+
+        assertThat(hs.size()).isEqualTo(list.size());
+        assertThat(hs.stream().allMatch(v -> v >= 1 && v <= 9)).isTrue();
+    }
+
     @Test
     void 게임종료_후_재시작() {
         assertRandomNumberInRangeTest(
