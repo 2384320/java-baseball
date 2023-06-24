@@ -78,8 +78,12 @@ public class Application {
             List<Integer> playerNumberList,
             String playerNumber
     ) {
-        for (String number : playerNumber.split("")) {
-            playerNumberList.add(Integer.parseInt(number));
+        if (!isRightInputForm(playerNumber)) notRightInputForm();
+
+        for (String oneNumber : playerNumber.split("")) {
+            int number = Integer.parseInt(oneNumber);
+            if (isDuplicate(playerNumberList, number)) notRightInputForm();
+            playerNumberList.add(number);
         }
     }
 
@@ -93,7 +97,6 @@ public class Application {
         System.out.print("숫자를 입력해주세요 : ");
         String playerNumber = scanner.nextLine();
 
-        if (!isRightInputForm(playerNumber)) notRightInputForm();
         savePlayerNumber(playerNumberList, playerNumber);
 
         return playerNumberList;
