@@ -4,10 +4,11 @@ import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.*;
 
+import static camp.nextstep.edu.missionutils.Console.readLine;
+
 public class Application {
     private static final String replayGame = "1";
     private static final String finishGame = "2";
-    private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         System.out.println("숫자 야구 게임을 시작합니다.");
         playGame();
@@ -24,7 +25,7 @@ public class Application {
     public static boolean setGameOver() {
         System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-        String replayCommand = scanner.nextLine();
+        String replayCommand = readLine();
         if (!isRightReplayCommandForm(replayCommand)) notRightInputForm();
 
         return replayCommand.equals(replayGame);
@@ -97,7 +98,7 @@ public class Application {
     public static List<Integer> inputPlayerValue() {
         List<Integer> playerNumberList = new ArrayList<>();
         System.out.print("숫자를 입력해주세요 : ");
-        String playerNumber = scanner.nextLine();
+        String playerNumber = readLine();
 
         savePlayerNumber(playerNumberList, playerNumber);
 
