@@ -8,19 +8,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import static baseball.Application.inputPlayerValue;
-import static baseball.Application.setGame;
+import static baseball.Application.*;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ApplicationTest extends NsTest {
     @DisplayName("컴퓨터가 선정한 랜덤 값이 중복인지 확인")
     @Test
     void checkDuplicateRandomNumber() {
-        List<Integer> list = new ArrayList<>();
-        setGame(list);
+        List<Integer> list = saveRandomNumber();
 
         HashSet<Integer> hs = new HashSet<>(list);
 
@@ -30,9 +28,7 @@ class ApplicationTest extends NsTest {
     @DisplayName("컴퓨터가 선정한 랜덤 값이 범위 내인지 확인")
     @Test
     void checkRandomNumberInRange() {
-        List<Integer> list = new ArrayList<>();
-
-        setGame(list);
+        List<Integer> list = saveRandomNumber();
 
         assertThat(list.stream().allMatch(v -> v >= 1 && v <= 9)).isTrue();
     }
@@ -42,20 +38,19 @@ class ApplicationTest extends NsTest {
     void checkItIsSavedProperly() {
         List<Integer> list = new ArrayList<>();
 
-        inputPlayerValue(list, "111");
+        savePlayerNumber(list, "123");
 
-        assertThat(list).isEqualTo(new ArrayList<>(List.of(1, 1, 1)));
+        assertThat(list).isEqualTo(new ArrayList<>(List.of(1, 2, 3)));
     }
 
     @DisplayName("사용자 값이 제대로 입력되지 않으면 에러가 발생하는지 확인")
     @Test
     void checkIfNotRightValue() {
-        List<String> list = new ArrayList<>(List.of("1111", "011", "h11", "11"));
-        for (String testString : list) {
-            assertSimpleTest(() ->
-                    assertThatThrownBy(() -> runException(testString))
-                            .isInstanceOf(IllegalArgumentException.class)
-            );
+        List<Integer> list = new ArrayList<>();
+        List<String> exceptionString = new ArrayList<>(List.of("1234", "011", "h11", "11", "111", "112"));
+        for (String testString : exceptionString) {
+            assertThrows(IllegalArgumentException.class,
+                    () -> savePlayerNumber(list, testString));
         }
     }
 
@@ -73,7 +68,7 @@ class ApplicationTest extends NsTest {
     @Test
     void 예외_테스트() {
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException("1234"))
+                assertThatCode(() -> runException("1234"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
