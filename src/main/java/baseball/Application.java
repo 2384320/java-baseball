@@ -31,7 +31,7 @@ public class Application {
         return replayCommand.equals(replayGame);
     }
 
-    public static void printResult(
+    public static String getPrintResult(
             int strikeCount,
             int ballCount
     ) {
@@ -41,7 +41,7 @@ public class Application {
         else if (strikeCount == 0) result = ballCount + "볼";
         else if (ballCount == 0) result = strikeCount + "스트라이크";
         else result = ballCount + "볼 " + strikeCount + "스트라이크";
-        System.out.println(result);
+        return result;
     }
 
     public static int getContainCount(
@@ -73,7 +73,7 @@ public class Application {
         int strikeCount = getStrike(computerNumberList, playerNumberList);
         int containCount = getContainCount(computerNumberList, playerNumberList);
         int ballCount = containCount - strikeCount;
-        printResult(strikeCount, ballCount);
+        System.out.println(getPrintResult(strikeCount, ballCount));
         return strikeCount == 3;
     }
 
