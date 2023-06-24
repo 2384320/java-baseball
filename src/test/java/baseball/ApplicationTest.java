@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -52,6 +53,28 @@ class ApplicationTest extends NsTest {
             assertThrows(IllegalArgumentException.class,
                     () -> savePlayerNumber(list, testString));
         }
+    }
+
+    @DisplayName("스트라이크 수가 올바른지 확인")
+    @Test
+    void isCorrectStrikeCount() {
+        List<Integer> computerNumberList = new ArrayList<>(List.of(1, 2, 3));
+        List<Integer> playerNumberList = new ArrayList<>(List.of(1, 2, 3));
+        assertThat(getStrike(computerNumberList, playerNumberList)).isEqualTo(3);
+    }
+
+    @DisplayName("포함되어있는 숫자 수가 올바른지 확인")
+    @Test
+    void isCorrectContainCount() {
+        List<Integer> computerNumberList = new ArrayList<>(List.of(3, 2, 1));
+        List<Integer> playerNumberList = new ArrayList<>(List.of(1, 2, 3));
+        assertThat(getContainCount(computerNumberList, playerNumberList)).isEqualTo(3);
+    }
+
+    @DisplayName("값 비교 시 알맞은 결과가 출력되는지 확인")
+    @Test
+    void isRightResult() {
+        assertThat(getPrintResult(3, 0)).isEqualTo("3스트라이크");
     }
 
     @Test
