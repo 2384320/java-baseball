@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -75,6 +74,18 @@ class ApplicationTest extends NsTest {
     @Test
     void isRightResult() {
         assertThat(getPrintResult(3, 0)).isEqualTo("3스트라이크");
+        assertThat(getPrintResult(1, 0)).isEqualTo("1스트라이크");
+        assertThat(getPrintResult(0, 1)).isEqualTo("1볼");
+        assertThat(getPrintResult(1, 1)).isEqualTo("1볼 1스트라이크");
+        assertThat(getPrintResult(0, 0)).isEqualTo("낫싱");
+    }
+
+    @DisplayName("제대로 된 값을 입력하였을 때 true 반환되는지 확인")
+    @Test
+    void isRightReplayInputForm() {
+        assertThat(isRightReplayCommandForm("1")).isTrue();
+        assertThat(isRightReplayCommandForm("2")).isTrue();
+        assertThat(isRightReplayCommandForm("3")).isFalse();
     }
 
     @Test
