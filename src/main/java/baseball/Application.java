@@ -5,7 +5,8 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.*;
 
 public class Application {
-    private final static int gameStart = 1;
+    private final static int gameStartCommand = 1;
+    private final static int inputPlayerValueCommand = 2;
 
     public static void main(String[] args) {
         List<Integer> computerNumberList = new ArrayList<>();
@@ -15,8 +16,13 @@ public class Application {
 
         do {
             setGame(computerNumberList);
+
+            printOutputString(inputPlayerValueCommand);
             String playerNumber = scanner.nextLine();
             inputPlayerValue(playerNumberList, playerNumber);
+
+            compareValue(computerNumberList, playerNumberList);
+
 
 
         } while (false);
@@ -25,13 +31,44 @@ public class Application {
 
     private static String getOutputString(int command) {
         String outputString = "";
-        if (command == gameStart) outputString = "숫자 야구 게임을 시작합니다.";
+        if (command == gameStartCommand) outputString = "숫자 야구 게임을 시작합니다.\n";
+        else if (command == inputPlayerValueCommand) outputString = "숫자를 입력해주세요 : ";
 
         return outputString;
     }
 
     private static void printOutputString(int command) {
-        System.out.println(getOutputString(command));
+        System.out.print(getOutputString(command));
+    }
+
+    private static boolean isEqualsValue(
+            int computerNumber,
+            int playerNumber
+    ) {
+        return computerNumber == playerNumber;
+    }
+
+    private static int getStrike(
+            List<Integer> computerNumberList,
+            List<Integer> playerNumberList
+    ) {
+        int strikeCount = 0;
+        for (int i = 0; i < 3; i++) {
+            if (isEqualsValue(
+                    computerNumberList.get(i),
+                    playerNumberList.get(i)
+            )) strikeCount++;
+        }
+
+        return strikeCount;
+    }
+
+    public static void compareValue(
+            List<Integer> computerNumberList,
+            List<Integer> playerNumberList
+    ) {
+        int strikeCount = getStrike(computerNumberList, playerNumberList);
+        if (strikeCount == 3) return;
     }
 
     private static void savePlayerNumber(
@@ -85,7 +122,7 @@ public class Application {
     public static void setGame(
             List<Integer> computerNumberList
     ) {
-        printOutputString(gameStart);
+        printOutputString(gameStartCommand);
         saveRandomNumber(computerNumberList);
     }
 }
