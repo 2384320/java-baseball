@@ -7,12 +7,8 @@ import java.util.*;
 public class Application {
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        List<Integer> computerNumberList = new ArrayList<>();
-        List<Integer> playerNumberList = new ArrayList<>();
-
         System.out.println("숫자 야구 게임을 시작합니다.");
-
-        playGame(computerNumberList, playerNumberList);
+        playGame();
     }
 
     private static void notRightInputForm() {
@@ -24,6 +20,24 @@ public class Application {
             int playerNumber
     ) {
         return computerNumber == playerNumber;
+    }
+
+    private static int getBall(
+            List<Integer> computerNumberList,
+            List<Integer> playerNumberList
+    ) {
+        int ballCount = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (i == j) continue;
+                if (isEqualsValue(
+                        computerNumberList.get(i),
+                        playerNumberList.get(j)
+                )) ballCount++;
+            }
+        }
+
+        return ballCount;
     }
 
     private static int getStrike(
@@ -41,12 +55,23 @@ public class Application {
         return strikeCount;
     }
 
-    public static void compareValue(
+    public static boolean compareValue(
             List<Integer> computerNumberList,
             List<Integer> playerNumberList
     ) {
         int strikeCount = getStrike(computerNumberList, playerNumberList);
-        if (strikeCount == 3) return;
+        if (strikeCount == 3) {
+            System.out.println("3스트라이크");
+            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+            return true;
+        }
+        int ballCount = getBall(computerNumberList, playerNumberList);
+
+        if (strikeCount == 0 && ballCount == 0) System.out.println("낫싱");
+        else if (strikeCount == 0) System.out.println(ballCount + "볼");
+        else if (ballCount == 0) System.out.println(strikeCount + "스트라이크");
+        else System.out.println(ballCount + "볼 " + strikeCount + "스트라이크");
+        return false;
     }
 
     private static void savePlayerNumber(
@@ -63,14 +88,24 @@ public class Application {
                 playerNumber.matches("[1-9]*");
     }
 
-    public static void inputPlayerValue(
-            List<Integer> playerNumberList
-    ) {
+    public static List<Integer> inputPlayerValue() {
+        List<Integer> playerNumberList = new ArrayList<>();
         System.out.print("숫자를 입력해주세요 : ");
         String playerNumber = scanner.nextLine();
 
         if (!isRightInputForm(playerNumber)) notRightInputForm();
         savePlayerNumber(playerNumberList, playerNumber);
+
+        return playerNumberList;
+    }
+
+    public static void inputAndCompareValue(
+            List<Integer> computerNumberList
+    ) {
+        List<Integer> playerNumberList;
+        do {
+            playerNumberList = inputPlayerValue();
+        } while (!compareValue(computerNumberList, playerNumberList));
     }
 
     private static boolean isDuplicate(
@@ -84,24 +119,20 @@ public class Application {
         return Randoms.pickNumberInRange(1, 9);
     }
 
-    private static void saveRandomNumber(
-            List<Integer> computerNumberList
-    ) {
+    private static List<Integer> saveRandomNumber() {
+        List<Integer> computerNumberList = new ArrayList<>();
         while (computerNumberList.size() < 3) {
             int randomNumber = getRandomNumber();
             if (isDuplicate(computerNumberList, randomNumber)) continue;
             computerNumberList.add(randomNumber);
         }
+
+        return computerNumberList;
     }
 
-    public static void playGame(
-            List<Integer> computerNumberList,
-            List<Integer> playerNumberList
-    ) {
-        saveRandomNumber(computerNumberList);
+    public static void playGame() {
+        List<Integer> computerNumberList = saveRandomNumber();
 
-        inputPlayerValue(playerNumberList);
-
-        compareValue(computerNumberList, playerNumberList);
+        inputAndCompareValue(computerNumberList);
     }
 }
