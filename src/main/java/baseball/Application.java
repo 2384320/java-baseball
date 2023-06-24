@@ -43,29 +43,15 @@ public class Application {
         System.out.println(result);
     }
 
-    private static boolean isEqualsValue(
-            int computerNumber,
-            int playerNumber
-    ) {
-        return computerNumber == playerNumber;
-    }
-
-    private static int getBall(
+    private static int getContainCount(
             List<Integer> computerNumberList,
             List<Integer> playerNumberList
     ) {
-        int ballCount = 0;
+        int containCount = 0;
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i == j) continue;
-                if (isEqualsValue(
-                        computerNumberList.get(i),
-                        playerNumberList.get(j)
-                )) ballCount++;
-            }
+            if (computerNumberList.contains(playerNumberList.get(i))) containCount++;
         }
-
-        return ballCount;
+        return containCount;
     }
 
     private static int getStrike(
@@ -74,12 +60,8 @@ public class Application {
     ) {
         int strikeCount = 0;
         for (int i = 0; i < 3; i++) {
-            if (isEqualsValue(
-                    computerNumberList.get(i),
-                    playerNumberList.get(i)
-            )) strikeCount++;
+            if (computerNumberList.get(i).equals(playerNumberList.get(i))) strikeCount++;
         }
-
         return strikeCount;
     }
 
@@ -88,7 +70,8 @@ public class Application {
             List<Integer> playerNumberList
     ) {
         int strikeCount = getStrike(computerNumberList, playerNumberList);
-        int ballCount = getBall(computerNumberList, playerNumberList);
+        int containCount = getContainCount(computerNumberList, playerNumberList);
+        int ballCount = containCount - strikeCount;
         printResult(strikeCount, ballCount);
         return strikeCount == 3;
     }
