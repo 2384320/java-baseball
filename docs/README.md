@@ -9,7 +9,7 @@
     - `isThreeStrike` - 랜덤 값과 사용자 값을 비교하여 3스트라이크가 나올 시 true 반환함.
       - `getStrike` - 두 값을 비교하여 스트라이크의 수를 반환함.
       - `getContainCount` - 두 값을 비교하여 서로 포함되어 있는 숫자의 수를 반환함.
-      - `printResult` - 결과에 대한 문구를 출력함.
+      - `getPrintResult` - 결과에 대한 문구를 반환함.
   - `setGameOver` - 게임 중단 세팅, 게임을 중단할 시 false 반환함.
     - `isRightReplayCommandForm` - 입력된 값이 1 또는 2가 맞다면 true 반환함.
 
