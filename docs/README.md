@@ -6,12 +6,11 @@
     - `inputPlayerValue` - 사용자의 입력을 받고 저장함.
     - `savePlayerNumber` - 사용자가 입력한 값을 저장하며, 중복이 있다면 notRightInputForm 실행함.
       - `isRightInputForm` - 사용자가 입력한 값이 3글자가 맞는지, 1에서 9의 값으로만 이루어져 있는지 확인, 옳지 않으면 `notRightInputForm` 실행함.
-    - `compareValue` - 사용자가 입력한 값과 컴퓨터가 랜덤으로 지정한 값을 비교하고 나온 결과 반환함.
+    - `isThreeStrike` - 랜덤 값과 사용자 값을 비교하여 3스트라이크가 나올 시 true 반환
       - `getStrike` - 두 값을 비교하여 스트라이크의 수를 반환함.
-        - `isThreeStrike` - 3스트라이크가 나왔으면 true 반환함.
       - `getBall` - 두 값을 비교하여 볼의 수를 반환함.
         - `isEqualsValue` - 두 숫자가 같으면 true, 다르면 false 반환함.
-      - `isNotThing` - 스트라이크의 수와 볼의 수 둘 다 0일 경우 true 반환함.
+      - `printResult` - 결과에 대한 문구를 출력함.
   - `setGameOver` - 게임 중단 세팅
     - `isRightGameSetCommand` - 입력된 값이 1 또는 2가 맞다면 true 반환함, 아니라면 `notRightInputForm` 실행함.
 
