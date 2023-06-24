@@ -5,7 +5,6 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.*;
 
 public class Application {
-
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         List<Integer> computerNumberList = new ArrayList<>();
@@ -13,16 +12,7 @@ public class Application {
 
         System.out.println("숫자 야구 게임을 시작합니다.");
 
-
-        do {
-            setGame(computerNumberList);
-
-            playGame(computerNumberList, playerNumberList);
-
-
-
-        } while (false);
-
+        playGame(computerNumberList, playerNumberList);
     }
 
     private static void notRightInputForm() {
@@ -82,7 +72,7 @@ public class Application {
         savePlayerNumber(playerNumberList, playerNumber);
     }
 
-    public static void playGame(
+    public static void inputAndCompareValue(
             List<Integer> computerNumberList,
             List<Integer> playerNumberList
     ) {
@@ -114,9 +104,17 @@ public class Application {
         }
     }
 
-    public static void setGame(
-            List<Integer> computerNumberList
+//    public static void setGame(
+//            List<Integer> computerNumberList
+//    ) {
+//
+//    }
+
+    public static void playGame(
+            List<Integer> computerNumberList,
+            List<Integer> playerNumberList
     ) {
         saveRandomNumber(computerNumberList);
+
     }
 }
