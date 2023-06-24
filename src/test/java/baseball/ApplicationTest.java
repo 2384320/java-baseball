@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -46,6 +45,18 @@ class ApplicationTest extends NsTest {
         inputPlayerValue(list, "111");
 
         assertThat(list).isEqualTo(new ArrayList<>(List.of(1, 1, 1)));
+    }
+
+    @DisplayName("사용자 값이 제대로 입력되지 않으면 에러가 발생하는지 확인")
+    @Test
+    void checkIfNotRightValue() {
+        List<String> list = new ArrayList<>(List.of("1111", "011", "h11", "11"));
+        for (String testString : list) {
+            assertSimpleTest(() ->
+                    assertThatThrownBy(() -> runException(testString))
+                            .isInstanceOf(IllegalArgumentException.class)
+            );
+        }
     }
 
     @Test
