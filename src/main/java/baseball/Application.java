@@ -15,6 +15,19 @@ public class Application {
         throw new IllegalArgumentException();
     }
 
+    private static void printResult(
+            int strikeCount,
+            int ballCount
+    ) {
+        String result;
+        if (strikeCount == 3) result = "3스트라이크";
+        else if (strikeCount == 0 && ballCount == 0) result = "낫싱";
+        else if (strikeCount == 0) result = ballCount + "볼";
+        else if (ballCount == 0) result = strikeCount + "스트라이크";
+        else result = ballCount + "볼 " + strikeCount + "스트라이크";
+        System.out.println(result);
+    }
+
     private static boolean isEqualsValue(
             int computerNumber,
             int playerNumber
@@ -55,23 +68,14 @@ public class Application {
         return strikeCount;
     }
 
-    public static boolean compareValue(
+    public static boolean isThreeStrike(
             List<Integer> computerNumberList,
             List<Integer> playerNumberList
     ) {
         int strikeCount = getStrike(computerNumberList, playerNumberList);
-        if (strikeCount == 3) {
-            System.out.println("3스트라이크");
-            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-            return true;
-        }
         int ballCount = getBall(computerNumberList, playerNumberList);
-
-        if (strikeCount == 0 && ballCount == 0) System.out.println("낫싱");
-        else if (strikeCount == 0) System.out.println(ballCount + "볼");
-        else if (ballCount == 0) System.out.println(strikeCount + "스트라이크");
-        else System.out.println(ballCount + "볼 " + strikeCount + "스트라이크");
-        return false;
+        printResult(strikeCount, ballCount);
+        return strikeCount == 3;
     }
 
     private static void savePlayerNumber(
@@ -108,7 +112,7 @@ public class Application {
         List<Integer> playerNumberList;
         do {
             playerNumberList = inputPlayerValue();
-        } while (!compareValue(computerNumberList, playerNumberList));
+        } while (!isThreeStrike(computerNumberList, playerNumberList));
     }
 
     private static boolean isDuplicate(
@@ -137,5 +141,6 @@ public class Application {
         List<Integer> computerNumberList = saveRandomNumber();
 
         inputAndCompareValue(computerNumberList);
+        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
     }
 }
