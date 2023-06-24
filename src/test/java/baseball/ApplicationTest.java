@@ -18,39 +18,39 @@ class ApplicationTest extends NsTest {
     @DisplayName("컴퓨터가 선정한 랜덤 값이 중복인지 확인")
     @Test
     void checkDuplicateRandomNumber() {
-        List<Integer> list = saveRandomNumber();
+        List<Integer> randomNumberList = saveRandomNumber();
 
-        HashSet<Integer> hs = new HashSet<>(list);
+        HashSet<Integer> randomNumberHash = new HashSet<>(randomNumberList);
 
-        assertThat(hs.size()).isEqualTo(list.size());
+        assertThat(randomNumberHash.size()).isEqualTo(randomNumberList.size());
     }
 
     @DisplayName("컴퓨터가 선정한 랜덤 값이 범위 내인지 확인")
     @Test
     void checkRandomNumberInRange() {
-        List<Integer> list = saveRandomNumber();
+        List<Integer> randomNumberList = saveRandomNumber();
 
-        assertThat(list.stream().allMatch(v -> v >= 1 && v <= 9)).isTrue();
+        assertThat(randomNumberList.stream().allMatch(v -> v >= 1 && v <= 9)).isTrue();
     }
 
     @DisplayName("사용자 값이 제대로 저장이 됐는지 확인")
     @Test
     void checkItIsSavedProperly() {
-        List<Integer> list = new ArrayList<>();
+        List<Integer> playerNumberList = new ArrayList<>();
 
-        savePlayerNumber(list, "123");
+        savePlayerNumber(playerNumberList, "123");
 
-        assertThat(list).isEqualTo(new ArrayList<>(List.of(1, 2, 3)));
+        assertThat(playerNumberList).isEqualTo(new ArrayList<>(List.of(1, 2, 3)));
     }
 
     @DisplayName("사용자 값이 제대로 입력되지 않으면 에러가 발생하는지 확인")
     @Test
     void checkIfNotRightValue() {
-        List<Integer> list = new ArrayList<>();
+        List<Integer> playerNumberList = new ArrayList<>();
         List<String> exceptionString = new ArrayList<>(List.of("1234", "011", "h11", "11", "111", "112"));
         for (String testString : exceptionString) {
             assertThrows(IllegalArgumentException.class,
-                    () -> savePlayerNumber(list, testString));
+                    () -> savePlayerNumber(playerNumberList, testString));
         }
     }
 
