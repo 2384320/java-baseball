@@ -5,23 +5,19 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.*;
 
 public class Application {
-    private final static int gameStartCommand = 1;
-    private final static int inputPlayerValueCommand = 2;
 
+    private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         List<Integer> computerNumberList = new ArrayList<>();
         List<Integer> playerNumberList = new ArrayList<>();
 
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("숫자 야구 게임을 시작합니다.");
+
 
         do {
             setGame(computerNumberList);
 
-            printOutputString(inputPlayerValueCommand);
-            String playerNumber = scanner.nextLine();
-            inputPlayerValue(playerNumberList, playerNumber);
-
-            compareValue(computerNumberList, playerNumberList);
+            playGame(computerNumberList, playerNumberList);
 
 
 
@@ -29,16 +25,8 @@ public class Application {
 
     }
 
-    private static String getOutputString(int command) {
-        String outputString = "";
-        if (command == gameStartCommand) outputString = "숫자 야구 게임을 시작합니다.\n";
-        else if (command == inputPlayerValueCommand) outputString = "숫자를 입력해주세요 : ";
-
-        return outputString;
-    }
-
-    private static void printOutputString(int command) {
-        System.out.print(getOutputString(command));
+    private static void notRightInputForm() {
+        throw new IllegalArgumentException();
     }
 
     private static boolean isEqualsValue(
@@ -80,10 +68,6 @@ public class Application {
         }
     }
 
-    private static void notRightInputForm() {
-        throw new IllegalArgumentException();
-    }
-
     private static boolean isRightInputLength(String playerNumber) {
         return playerNumber.length() == 3;
     }
@@ -96,6 +80,17 @@ public class Application {
                 !playerNumber.matches("[1-9]*")) notRightInputForm();
 
         savePlayerNumber(playerNumberList, playerNumber);
+    }
+
+    public static void playGame(
+            List<Integer> computerNumberList,
+            List<Integer> playerNumberList
+    ) {
+        System.out.print("숫자를 입력해주세요 : ");
+        String playerNumber = scanner.nextLine();
+        inputPlayerValue(playerNumberList, playerNumber);
+
+        compareValue(computerNumberList, playerNumberList);
     }
 
     private static boolean isDuplicate(
@@ -122,7 +117,6 @@ public class Application {
     public static void setGame(
             List<Integer> computerNumberList
     ) {
-        printOutputString(gameStartCommand);
         saveRandomNumber(computerNumberList);
     }
 }
