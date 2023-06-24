@@ -58,29 +58,19 @@ public class Application {
         }
     }
 
-    private static boolean isRightInputLength(String playerNumber) {
-        return playerNumber.length() == 3;
+    private static boolean isRightInputForm(String playerNumber) {
+        return playerNumber.length() == 3 &&
+                playerNumber.matches("[1-9]*");
     }
 
     public static void inputPlayerValue(
-            List<Integer> playerNumberList,
-            String playerNumber
-    ) {
-        if (!isRightInputLength(playerNumber) ||
-                !playerNumber.matches("[1-9]*")) notRightInputForm();
-
-        savePlayerNumber(playerNumberList, playerNumber);
-    }
-
-    public static void inputAndCompareValue(
-            List<Integer> computerNumberList,
             List<Integer> playerNumberList
     ) {
         System.out.print("숫자를 입력해주세요 : ");
         String playerNumber = scanner.nextLine();
-        inputPlayerValue(playerNumberList, playerNumber);
 
-        compareValue(computerNumberList, playerNumberList);
+        if (!isRightInputForm(playerNumber)) notRightInputForm();
+        savePlayerNumber(playerNumberList, playerNumber);
     }
 
     private static boolean isDuplicate(
@@ -104,17 +94,14 @@ public class Application {
         }
     }
 
-//    public static void setGame(
-//            List<Integer> computerNumberList
-//    ) {
-//
-//    }
-
     public static void playGame(
             List<Integer> computerNumberList,
             List<Integer> playerNumberList
     ) {
         saveRandomNumber(computerNumberList);
 
+        inputPlayerValue(playerNumberList);
+
+        compareValue(computerNumberList, playerNumberList);
     }
 }
