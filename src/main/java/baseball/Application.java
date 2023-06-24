@@ -13,11 +13,11 @@ public class Application {
         playGame();
     }
 
-    private static void notRightInputForm() {
+    public static void notRightInputForm() {
         throw new IllegalArgumentException();
     }
 
-    private static boolean isRightReplayCommandForm(String replayCommand) {
+    public static boolean isRightReplayCommandForm(String replayCommand) {
         return replayCommand.equals(replayGame) || replayCommand.equals(finishGame);
     }
 
@@ -30,7 +30,7 @@ public class Application {
         return replayCommand.equals(replayGame);
     }
 
-    private static void printResult(
+    public static void printResult(
             int strikeCount,
             int ballCount
     ) {
@@ -43,7 +43,7 @@ public class Application {
         System.out.println(result);
     }
 
-    private static int getContainCount(
+    public static int getContainCount(
             List<Integer> computerNumberList,
             List<Integer> playerNumberList
     ) {
@@ -54,7 +54,7 @@ public class Application {
         return containCount;
     }
 
-    private static int getStrike(
+    public static int getStrike(
             List<Integer> computerNumberList,
             List<Integer> playerNumberList
     ) {
@@ -76,7 +76,7 @@ public class Application {
         return strikeCount == 3;
     }
 
-    private static void savePlayerNumber(
+    public static void savePlayerNumber(
             List<Integer> playerNumberList,
             String playerNumber
     ) {
@@ -89,7 +89,7 @@ public class Application {
         }
     }
 
-    private static boolean isRightInputForm(String playerNumber) {
+    public static boolean isRightInputForm(String playerNumber) {
         return playerNumber.length() == 3 &&
                 playerNumber.matches("[1-9]*");
     }
@@ -113,18 +113,18 @@ public class Application {
         } while (!isThreeStrike(computerNumberList, playerNumberList));
     }
 
-    private static boolean isDuplicate(
+    public static boolean isDuplicate(
             List<Integer> computerNumberList,
             int randomNumber
     ) {
         return computerNumberList.contains(randomNumber);
     }
 
-    private static int getRandomNumber() {
+    public static int getRandomNumber() {
         return Randoms.pickNumberInRange(1, 9);
     }
 
-    private static List<Integer> saveRandomNumber() {
+    public static List<Integer> saveRandomNumber() {
         List<Integer> computerNumberList = new ArrayList<>();
         while (computerNumberList.size() < 3) {
             int randomNumber = getRandomNumber();
