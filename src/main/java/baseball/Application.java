@@ -14,63 +14,52 @@ public class Application {
         playGame();
     }
 
-    public static boolean isRightReplayCommandForm(String replayCommand) {
-        return replayCommand.equals(REPLAY_GAME) || replayCommand.equals(FINISH_GAME);
+    public static void playGame() {
+        do {
+            List<Integer> computerRandomNumberList = generateRandomNumbers();
+            inputAndCompareValue(computerRandomNumberList);
+        } while (setGameOver());
     }
 
-    public static boolean setGameOver() {
-        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-        String replayCommand = readLine();
-        if (!isRightReplayCommandForm(replayCommand)) throw new IllegalArgumentException();
-
-        return replayCommand.equals(REPLAY_GAME);
-    }
-
-    public static String getPrintResult(
-            int strikeCount,
-            int ballCount
-    ) {
-        String result;
-        if (strikeCount == 3) result = "3스트라이크";
-        else if (strikeCount == 0 && ballCount == 0) result = "낫싱";
-        else if (strikeCount == 0) result = ballCount + "볼";
-        else if (ballCount == 0) result = strikeCount + "스트라이크";
-        else result = ballCount + "볼 " + strikeCount + "스트라이크";
-        return result;
-    }
-
-    public static int getContainCount(
-            List<Integer> computerRandomNumberList,
-            List<Integer> playerNumberList
-    ) {
-        int containCount = 0;
-        for (int i = 0; i < 3; i++) {
-            if (computerRandomNumberList.contains(playerNumberList.get(i))) containCount++;
+    public static List<Integer> generateRandomNumbers() {
+        List<Integer> computerRandomNumberList = new ArrayList<>();
+        while (computerRandomNumberList.size() < 3) {
+            int randomNumber = getRandomNumber();
+            if (isDuplicate(computerRandomNumberList, randomNumber)) continue;
+            computerRandomNumberList.add(randomNumber);
         }
-        return containCount;
+
+        return computerRandomNumberList;
     }
 
-    public static int getStrike(
-            List<Integer> computerRandomNumberList,
-            List<Integer> playerNumberList
-    ) {
-        int strikeCount = 0;
-        for (int i = 0; i < 3; i++) {
-            if (computerRandomNumberList.get(i).equals(playerNumberList.get(i))) strikeCount++;
-        }
-        return strikeCount;
+    public static int getRandomNumber() {
+        return Randoms.pickNumberInRange(1, 9);
     }
 
-    public static boolean isThreeStrike(
+    public static boolean isDuplicate(
             List<Integer> computerRandomNumberList,
-            List<Integer> playerNumberList
+            int randomNumber
     ) {
-        int strikeCount = getStrike(computerRandomNumberList, playerNumberList);
-        int containCount = getContainCount(computerRandomNumberList, playerNumberList);
-        int ballCount = containCount - strikeCount;
-        System.out.println(getPrintResult(strikeCount, ballCount));
-        return strikeCount == 3;
+        return computerRandomNumberList.contains(randomNumber);
+    }
+
+    public static void inputAndCompareValue(
+            List<Integer> computerRandomNumberList
+    ) {
+        List<Integer> playerNumberList;
+        do {
+            playerNumberList = inputPlayerValue();
+        } while (!isThreeStrike(computerRandomNumberList, playerNumberList));
+    }
+
+    public static List<Integer> inputPlayerValue() {
+        List<Integer> playerNumberList = new ArrayList<>();
+        System.out.print("숫자를 입력해주세요 : ");
+        String playerNumber = readLine();
+
+        savePlayerNumber(playerNumberList, playerNumber);
+
+        return playerNumberList;
     }
 
     public static void savePlayerNumber(
@@ -91,51 +80,62 @@ public class Application {
                 playerNumber.matches("[1-9]*");
     }
 
-    public static List<Integer> inputPlayerValue() {
-        List<Integer> playerNumberList = new ArrayList<>();
-        System.out.print("숫자를 입력해주세요 : ");
-        String playerNumber = readLine();
-
-        savePlayerNumber(playerNumberList, playerNumber);
-
-        return playerNumberList;
-    }
-
-    public static void inputAndCompareValue(
-            List<Integer> computerRandomNumberList
-    ) {
-        List<Integer> playerNumberList;
-        do {
-            playerNumberList = inputPlayerValue();
-        } while (!isThreeStrike(computerRandomNumberList, playerNumberList));
-    }
-
-    public static boolean isDuplicate(
+    public static boolean isThreeStrike(
             List<Integer> computerRandomNumberList,
-            int randomNumber
+            List<Integer> playerNumberList
     ) {
-        return computerRandomNumberList.contains(randomNumber);
+        int strikeCount = getStrike(computerRandomNumberList, playerNumberList);
+        int containCount = getContainCount(computerRandomNumberList, playerNumberList);
+        int ballCount = containCount - strikeCount;
+        System.out.println(getPrintResult(strikeCount, ballCount));
+        return strikeCount == 3;
     }
 
-    public static int getRandomNumber() {
-        return Randoms.pickNumberInRange(1, 9);
-    }
-
-    public static List<Integer> generateRandomNumbers() {
-        List<Integer> computerRandomNumberList = new ArrayList<>();
-        while (computerRandomNumberList.size() < 3) {
-            int randomNumber = getRandomNumber();
-            if (isDuplicate(computerRandomNumberList, randomNumber)) continue;
-            computerRandomNumberList.add(randomNumber);
+    public static int getStrike(
+            List<Integer> computerRandomNumberList,
+            List<Integer> playerNumberList
+    ) {
+        int strikeCount = 0;
+        for (int i = 0; i < 3; i++) {
+            if (computerRandomNumberList.get(i).equals(playerNumberList.get(i))) strikeCount++;
         }
-
-        return computerRandomNumberList;
+        return strikeCount;
     }
 
-    public static void playGame() {
-        do {
-            List<Integer> computerRandomNumberList = generateRandomNumbers();
-            inputAndCompareValue(computerRandomNumberList);
-        } while (setGameOver());
+    public static int getContainCount(
+            List<Integer> computerRandomNumberList,
+            List<Integer> playerNumberList
+    ) {
+        int containCount = 0;
+        for (int i = 0; i < 3; i++) {
+            if (computerRandomNumberList.contains(playerNumberList.get(i))) containCount++;
+        }
+        return containCount;
+    }
+
+    public static String getPrintResult(
+            int strikeCount,
+            int ballCount
+    ) {
+        String result;
+        if (strikeCount == 3) result = "3스트라이크";
+        else if (strikeCount == 0 && ballCount == 0) result = "낫싱";
+        else if (strikeCount == 0) result = ballCount + "볼";
+        else if (ballCount == 0) result = strikeCount + "스트라이크";
+        else result = ballCount + "볼 " + strikeCount + "스트라이크";
+        return result;
+    }
+
+    public static boolean setGameOver() {
+        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        String replayCommand = readLine();
+        if (!isRightReplayCommandForm(replayCommand)) throw new IllegalArgumentException();
+
+        return replayCommand.equals(REPLAY_GAME);
+    }
+
+    public static boolean isRightReplayCommandForm(String replayCommand) {
+        return replayCommand.equals(REPLAY_GAME) || replayCommand.equals(FINISH_GAME);
     }
 }
