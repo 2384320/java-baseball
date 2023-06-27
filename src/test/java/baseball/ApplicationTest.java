@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ApplicationTest extends NsTest {
-    @DisplayName("사용자 값이 제대로 저장이 됐는지 확인")
+    @DisplayName("조건에 충족하는 사용자 값이 입력됐을 때 리스트 형식으로 저장되는지 확인")
     @Test
     void checkItIsSavedProperly() {
         List<Integer> playerNumberList = new ArrayList<>();
