@@ -121,7 +121,7 @@ public class Application {
         return Randoms.pickNumberInRange(1, 9);
     }
 
-    public static List<Integer> saveRandomNumber() {
+    public static List<Integer> generateRandomNumbers() {
         List<Integer> computerRandomNumberList = new ArrayList<>();
         while (computerRandomNumberList.size() < 3) {
             int randomNumber = getRandomNumber();
@@ -134,7 +134,7 @@ public class Application {
 
     public static void playGame() {
         do {
-            List<Integer> computerRandomNumberList = saveRandomNumber();
+            List<Integer> computerRandomNumberList = generateRandomNumbers();
             inputAndCompareValue(computerRandomNumberList);
         } while (setGameOver());
     }
