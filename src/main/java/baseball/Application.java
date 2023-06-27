@@ -41,33 +41,33 @@ public class Application {
     }
 
     public static int getContainCount(
-            List<Integer> computerNumberList,
+            List<Integer> computerRandomNumberList,
             List<Integer> playerNumberList
     ) {
         int containCount = 0;
         for (int i = 0; i < 3; i++) {
-            if (computerNumberList.contains(playerNumberList.get(i))) containCount++;
+            if (computerRandomNumberList.contains(playerNumberList.get(i))) containCount++;
         }
         return containCount;
     }
 
     public static int getStrike(
-            List<Integer> computerNumberList,
+            List<Integer> computerRandomNumberList,
             List<Integer> playerNumberList
     ) {
         int strikeCount = 0;
         for (int i = 0; i < 3; i++) {
-            if (computerNumberList.get(i).equals(playerNumberList.get(i))) strikeCount++;
+            if (computerRandomNumberList.get(i).equals(playerNumberList.get(i))) strikeCount++;
         }
         return strikeCount;
     }
 
     public static boolean isThreeStrike(
-            List<Integer> computerNumberList,
+            List<Integer> computerRandomNumberList,
             List<Integer> playerNumberList
     ) {
-        int strikeCount = getStrike(computerNumberList, playerNumberList);
-        int containCount = getContainCount(computerNumberList, playerNumberList);
+        int strikeCount = getStrike(computerRandomNumberList, playerNumberList);
+        int containCount = getContainCount(computerRandomNumberList, playerNumberList);
         int ballCount = containCount - strikeCount;
         System.out.println(getPrintResult(strikeCount, ballCount));
         return strikeCount == 3;
@@ -102,19 +102,19 @@ public class Application {
     }
 
     public static void inputAndCompareValue(
-            List<Integer> computerNumberList
+            List<Integer> computerRandomNumberList
     ) {
         List<Integer> playerNumberList;
         do {
             playerNumberList = inputPlayerValue();
-        } while (!isThreeStrike(computerNumberList, playerNumberList));
+        } while (!isThreeStrike(computerRandomNumberList, playerNumberList));
     }
 
     public static boolean isDuplicate(
-            List<Integer> computerNumberList,
+            List<Integer> computerRandomNumberList,
             int randomNumber
     ) {
-        return computerNumberList.contains(randomNumber);
+        return computerRandomNumberList.contains(randomNumber);
     }
 
     public static int getRandomNumber() {
@@ -122,20 +122,20 @@ public class Application {
     }
 
     public static List<Integer> saveRandomNumber() {
-        List<Integer> computerNumberList = new ArrayList<>();
-        while (computerNumberList.size() < 3) {
+        List<Integer> computerRandomNumberList = new ArrayList<>();
+        while (computerRandomNumberList.size() < 3) {
             int randomNumber = getRandomNumber();
-            if (isDuplicate(computerNumberList, randomNumber)) continue;
-            computerNumberList.add(randomNumber);
+            if (isDuplicate(computerRandomNumberList, randomNumber)) continue;
+            computerRandomNumberList.add(randomNumber);
         }
 
-        return computerNumberList;
+        return computerRandomNumberList;
     }
 
     public static void playGame() {
         do {
-            List<Integer> computerNumberList = saveRandomNumber();
-            inputAndCompareValue(computerNumberList);
+            List<Integer> computerRandomNumberList = saveRandomNumber();
+            inputAndCompareValue(computerRandomNumberList);
         } while (setGameOver());
     }
 }
