@@ -7,8 +7,8 @@ import java.util.*;
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
 public class Application {
-    private static final String replayGame = "1";
-    private static final String finishGame = "2";
+    private static final String REPLAY_GAME = "1";
+    private static final String FINISH_GAME = "2";
     public static void main(String[] args) {
         System.out.println("숫자 야구 게임을 시작합니다.");
         playGame();
@@ -19,7 +19,7 @@ public class Application {
     }
 
     public static boolean isRightReplayCommandForm(String replayCommand) {
-        return replayCommand.equals(replayGame) || replayCommand.equals(finishGame);
+        return replayCommand.equals(REPLAY_GAME) || replayCommand.equals(FINISH_GAME);
     }
 
     public static boolean setGameOver() {
@@ -28,7 +28,7 @@ public class Application {
         String replayCommand = readLine();
         if (!isRightReplayCommandForm(replayCommand)) notRightInputForm();
 
-        return replayCommand.equals(replayGame);
+        return replayCommand.equals(REPLAY_GAME);
     }
 
     public static String getPrintResult(
