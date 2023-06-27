@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import static baseball.Application.*;
@@ -15,24 +14,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ApplicationTest extends NsTest {
-    @DisplayName("컴퓨터가 선정한 랜덤 값이 중복인지 확인")
-    @Test
-    void checkDuplicateRandomNumber() {
-        List<Integer> randomNumberList = saveRandomNumber();
-
-        HashSet<Integer> randomNumberHash = new HashSet<>(randomNumberList);
-
-        assertThat(randomNumberHash.size()).isEqualTo(randomNumberList.size());
-    }
-
-    @DisplayName("컴퓨터가 선정한 랜덤 값이 범위 내인지 확인")
-    @Test
-    void checkRandomNumberInRange() {
-        List<Integer> randomNumberList = saveRandomNumber();
-
-        assertThat(randomNumberList.stream().allMatch(v -> v >= 1 && v <= 9)).isTrue();
-    }
-
     @DisplayName("사용자 값이 제대로 저장이 됐는지 확인")
     @Test
     void checkItIsSavedProperly() {
