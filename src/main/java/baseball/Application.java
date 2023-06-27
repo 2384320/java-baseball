@@ -37,10 +37,10 @@ public class Application {
     }
 
     public static boolean isDuplicate(
-            List<Integer> computerRandomNumberList,
-            int randomNumber
+            List<Integer> numberList,
+            int number
     ) {
-        return computerRandomNumberList.contains(randomNumber);
+        return numberList.contains(number);
     }
 
     public static void inputAndCompareValue(
