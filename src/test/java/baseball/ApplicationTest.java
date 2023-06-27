@@ -54,11 +54,17 @@ class ApplicationTest extends NsTest {
     @DisplayName("값 비교 시 알맞은 결과가 출력되는지 확인")
     @Test
     void isRightResult() {
-        assertThat(getPrintResult(3, 0)).isEqualTo("3스트라이크");
-        assertThat(getPrintResult(1, 0)).isEqualTo("1스트라이크");
-        assertThat(getPrintResult(0, 1)).isEqualTo("1볼");
-        assertThat(getPrintResult(1, 1)).isEqualTo("1볼 1스트라이크");
-        assertThat(getPrintResult(0, 0)).isEqualTo("낫싱");
+        assertAll(
+                () -> assertEquals(getPrintResult(3, 0), "3스트라이크"),
+                () -> assertEquals(getPrintResult(2, 0), "2스트라이크"),
+                () -> assertEquals(getPrintResult(1, 0), "1스트라이크"),
+                () -> assertEquals(getPrintResult(0, 1), "1볼"),
+                () -> assertEquals(getPrintResult(0, 2), "2볼"),
+                () -> assertEquals(getPrintResult(0, 3), "3볼"),
+                () -> assertEquals(getPrintResult(1, 1), "1볼 1스트라이크"),
+                () -> assertEquals(getPrintResult(1, 2), "2볼 1스트라이크"),
+                () -> assertEquals(getPrintResult(0, 0), "낫싱")
+        );
     }
 
     @DisplayName("제대로 된 값을 입력하였을 때 true 반환되는지 확인")
