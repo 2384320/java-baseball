@@ -40,10 +40,10 @@ class ApplicationTest extends NsTest {
     void isCorrectStrikeCount() {
         List<Integer> computerNumberList = new ArrayList<>(List.of(1, 2, 3));
         List<Integer> playerNumberList = new ArrayList<>(List.of(1, 2, 3));
-        assertThat(getStrike(computerNumberList, playerNumberList)).isEqualTo(3);
+        assertThat(getStrikeCount(computerNumberList, playerNumberList)).isEqualTo(3);
     }
 
-    @DisplayName("포함되어있는 수가 같은 두 값을 비교할 때, 포함되어있는 수가 3이 나오는지 확인")
+    @DisplayName("숫자 구성이 같은 두 값을 비교할 때, 포함되어있는 수가 3이 나오는지 확인")
     @Test
     void isCorrectContainCount() {
         List<Integer> computerNumberList = new ArrayList<>(List.of(3, 2, 1));
@@ -67,7 +67,7 @@ class ApplicationTest extends NsTest {
         );
     }
 
-    @DisplayName("제대로 된 값을 입력하였을 때 true 반환되는지 확인")
+    @DisplayName("게임 중단 명령에 1과 2를 제외한 값을 입력하면 false가 반환되는지 확인")
     @Test
     void isRightReplayInputForm() {
         assertThat(isRightReplayCommandForm("1")).isTrue();
