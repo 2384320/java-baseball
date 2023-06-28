@@ -3,6 +3,8 @@ package baseball;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +26,13 @@ class ApplicationTest extends NsTest {
         assertThat(playerNumberList).isEqualTo(new ArrayList<>(List.of(1, 2, 3)));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"1234", "011", "h11", "11", "111", "112"})
     @DisplayName("사용자 값이 제대로 입력되지 않으면 에러가 발생하는지 확인")
-    @Test
-    void checkIfNotRightValue() {
+    void checkIfNotRightValue(String testNumber) {
         List<Integer> playerNumberList = new ArrayList<>();
-        List<String> exceptionString = new ArrayList<>(List.of("1234", "011", "h11", "11", "111", "112"));
-        for (String testString : exceptionString) {
-            assertThrows(IllegalArgumentException.class,
-                    () -> savePlayerNumber(playerNumberList, testString));
-        }
+        assertThrows(IllegalArgumentException.class,
+                () -> savePlayerNumber(playerNumberList, testNumber));
     }
 
     @DisplayName("스트라이크 수가 올바른지 확인")
