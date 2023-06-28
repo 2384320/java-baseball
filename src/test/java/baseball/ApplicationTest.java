@@ -53,7 +53,7 @@ class ApplicationTest extends NsTest {
 
     @DisplayName("스트라이크 수와 볼 수가 주어질 때 알맞은 결과 문자열이 반환되는지 확인")
     @Test
-    void isRightResult() {
+    void isRightReturnResultString() {
         assertAll(
                 () -> assertEquals(getPrintResult(3, 0), "3스트라이크"),
                 () -> assertEquals(getPrintResult(2, 0), "2스트라이크"),
