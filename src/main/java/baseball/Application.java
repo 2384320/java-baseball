@@ -84,14 +84,14 @@ public class Application {
             List<Integer> computerRandomNumberList,
             List<Integer> playerNumberList
     ) {
-        int strikeCount = getStrike(computerRandomNumberList, playerNumberList);
+        int strikeCount = getStrikeCount(computerRandomNumberList, playerNumberList);
         int containCount = getContainCount(computerRandomNumberList, playerNumberList);
         int ballCount = containCount - strikeCount;
         System.out.println(getPrintResult(strikeCount, ballCount));
         return strikeCount == 3;
     }
 
-    public static int getStrike(
+    public static int getStrikeCount(
             List<Integer> computerRandomNumberList,
             List<Integer> playerNumberList
     ) {
