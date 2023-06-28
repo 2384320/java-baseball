@@ -35,7 +35,7 @@ class ApplicationTest extends NsTest {
                 () -> savePlayerNumber(playerNumberList, testNumber));
     }
 
-    @DisplayName("스트라이크 수가 올바른지 확인")
+    @DisplayName("비교하는 두 값이 같을 경우 스트라이크 수가 3이 나오는 지 확인")
     @Test
     void isCorrectStrikeCount() {
         List<Integer> computerNumberList = new ArrayList<>(List.of(1, 2, 3));
@@ -43,7 +43,7 @@ class ApplicationTest extends NsTest {
         assertThat(getStrike(computerNumberList, playerNumberList)).isEqualTo(3);
     }
 
-    @DisplayName("포함되어있는 숫자 수가 올바른지 확인")
+    @DisplayName("포함되어있는 수가 같은 두 값을 비교할 때, 포함되어있는 수가 3이 나오는지 확인")
     @Test
     void isCorrectContainCount() {
         List<Integer> computerNumberList = new ArrayList<>(List.of(3, 2, 1));
@@ -51,7 +51,7 @@ class ApplicationTest extends NsTest {
         assertThat(getContainCount(computerNumberList, playerNumberList)).isEqualTo(3);
     }
 
-    @DisplayName("값 비교 시 알맞은 결과가 출력되는지 확인")
+    @DisplayName("스트라이크 수와 볼 수가 주어질 때 알맞은 결과 문자열이 반환되는지 확인")
     @Test
     void isRightResult() {
         assertAll(
